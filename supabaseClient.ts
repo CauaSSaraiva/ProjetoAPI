@@ -1,8 +1,22 @@
-// supabaseClient.ts
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
-import "dotenv/config";
+// Verifica e carrega as variáveis do ambiente local (apenas para desenvolvimento local)
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
-const supabaseClient = createClient(process.env.supabaseUrl as string, process.env.supabasekey as string);
+// Lê as variáveis de ambiente
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
 
-export default supabaseClient; // Exporta a instância para ser usada em outros arquivos
+// Validação: Certifique-se de que as variáveis estão definidas
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error(
+    "Supabase URL or Key is missing. Check your environment variables."
+  );
+}
+
+// Cria o cliente do Supabase
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
+
+export default supabaseClient; // Exporta a instância para uso em outros arquivos

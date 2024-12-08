@@ -40,8 +40,9 @@ app.listen(port, () => {
 declare global {
   namespace Express {
     interface Request {
-      user?: any; // Defina o tipo que você espera para user
-      session?: any; // Defina o tipo que você espera para session
+      user?: any; 
+      session?: any; 
     }
   }
 }
+
